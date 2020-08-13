@@ -8,15 +8,40 @@
 </head>
 
 <body>
-    <div>
-        <%books.forEach((item) => {%>
-        <p><img src=<%=item.image%>>
-        <%=item.title%>
-        <%=item.authers%>
-        <%=item.description%></p>
-        <%});%>
-    </div>
+    <main>
+        <h1>Search Results</h1>
+        <ul>
+            <% searchRuslts.forEach(book => { %>
+            <li>
+                <div>
+                    <img src=" <%= book.image_url %> " alt="cover">
+                    <h2> <%= book.title %></h2>
+                    <h3> <%= book.author %></h3>
+                    <p> <%= book.description %></p>
+                </div>
+                <form action="/books" method="POST">
+                    <label for="title">Title <input name="title" id="title" type="text" value= "<%= book.title %>"></label>
+                    <br>
+                    <label for="author">Author <input name='author' id='author' type="text"
+                            value="<%= book.author %>"></label>
+                    <br>
+                    <label for="isbn">isbn <input name='isbn' id='isbn' type="text" value="<%= book.isbn %>"></label>
+                    <br>
+                    <label for="image_url">Image Path <input name='image_url' id='image_url' type="text"
+                            value="<%= book.image_url %>"></label>
+                    <br>
+                    <label for="description">Description <input name='description' id='description' type="text"
+                            value="<%= book.description %>"></label>
+                    <br>
+                    <label for="bookshelf">Book Shelf <input type="text"> </label>
+                    <br>
+                    <button type="submit">Add book to shelf</button>
+                </form>
+            </li>
+            
+            <% }); %>
+        </ul>
+    </main>
 </body>
-
 
 </html>

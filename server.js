@@ -4,21 +4,30 @@ const express = require('express');
 const pg = require('pg');
 const superagent = require('superagent');
 const cors = require('cors');
+const { request, response } = require('express');
 
+// application setup
 const PORT = process.env.PORT || 8080;
 const app = express();
+
+// set the view engine for server-side templeting
 app.set('view engine', 'ejs');
 
 app.use(cors());
+// application middleware
 app.use(express.static('./public'));
 app.use(express.urlencoded({ extended: true }));
 
 // Database Setup
 const client = new pg.Client(process.env.DATABASE_URL);
-client.connect();
+client.connect().then(()=>{
+    app.listen(PORT, () => {
+        console.log(`Listening to Port ${PORT}`);
+    });
+})
 client.on('error', err => console.error(err));
 
-
+// routs
 app.get('/hello', (req, res) => {
     res.render('pages/index');
 });
@@ -42,12 +51,23 @@ app.get('/books/:id', (req , res ) =>{
 
     client.query(SQL, values).then(data => {
         // console.log('single', result.rows[0]);
-       res.render('pages/books/detail', { book: data.rows[0] });
+       res.render('pages/books/show', { book: data.rows[0] });
       }).catch((error) => {
         error = { 'message': 'page not found', 'status': '404' }
         res.render('pages/error', { errorView:error });
     })
 });
+
+app.post('/books', (req , res)=>{
+    let bookData = req.body;
+    let SQL = 'INSERT INTO books (title,author,isbn,description,image_url,bookshelf) VALUES ($1,$2,$3,$4,$5,$6) RETURNING id';
+    //object.values
+    let bookArray = [bookData.title,bookData.author,bookData.isbn, bookData.description,bookData.image_url,bookData.bookshelf];
+    client.query(SQL,bookArray).then(result =>{
+        res.redirect(`/books/${result.rows[0].id}`);
+    });
+
+})
 
 
 app.get("/searches/new", (req, res) => {
@@ -58,26 +78,20 @@ app.get("/searches/new", (req, res) => {
 // https://www.googleapis.com/books/v1/volumes?q=search+terms
 // ex : https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor
 app.post(`/searches`, (req, res) => {
-    let searchInput = req.body.searchInput;
-    let sreachType = req.body.sreachType;
-    let terms;
-    if (sreachType == 'title') {
-        terms = 'intitle'
-    }
-    else {
-        terms = 'inauthor'
-    }
-    let url = `https://www.googleapis.com/books/v1/volumes?q=${searchInput}+${terms}`;
+   
+   
+    let url = `https://www.googleapis.com/books/v1/volumes?q=${req.body.search}+${req.body.title ? 'intitle' : 'inauthor'}`;
 
-    superagent.get(url).then(data => {
+   return superagent.get(url).then(data => {
         let allbooks = [];
         data.body.items.map(element => {
 
             let bookData = new Book(element);
             allbooks.push(bookData);
+            return allbooks;
 
         });
-        res.render('pages/searches/show', { books: allbooks });
+        res.render('pages/searches/show', { searchRuslts: allbooks });
     }).catch((error) => {
         error = { 'message': 'page not found', 'status': '404' }
         res.render('pages/error', { errorView: error });
@@ -86,13 +100,13 @@ app.post(`/searches`, (req, res) => {
 // constructer 
 
 function Book(data) {
-    this.image = data.volumeInfo.imageLinks.smallThumbnail || 'https://i.imgur.com/J5LVHEL.jpg';
-    this.title = data.volumeInfo.title;
-    this.authors = data.volumeInfo.authors;
-    this.description = data.volumeInfo.description;
+    this.image_url = data.volumeInfo.imageLinks.thumbnail.replace(/^(http:)/g,'https:')  || 'https://i.imgur.com/J5LVHEL.jpg';
+    this.author = data.volumeInfo.authors || 'not available';
+    this.title = data.volumeInfo.title || 'not available';
+    this.author = data.volumeInfo.authors || 'not available';
+    this.description = data.volumeInfo.description || 'not available';
+    this.isbn = data.volumeInfo.industryIdentifiers[0].identifier || 'not available';
 }
 
 
-app.listen(PORT, () => {
-    console.log(`Listening to Port ${PORT}`);
-});
+

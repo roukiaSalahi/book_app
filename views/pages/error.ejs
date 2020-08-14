@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Error</title>
+    <%- include('../layout/head') %>
 </head>
+
 <body>
-    <p><%= error.message %></p>
-    <p><%= error.status %></p>
+    <%- include('../layout/header') %>
+    <main>
+        <p><%= error.message %></p>
+        <p><%= error.status %></p>
+    </main>
+    <%- include('../../layout/footer') %>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
+<script>
+    $(".tabs").hide();
+    $("#burger").click(() => {
+        $(".tabs").slideToggle();
+    });
+</script>
+
 </html>

@@ -1,8 +1,8 @@
-$('.toggle-form').on('click', function(){
+$('#showform').click(()=>{
+    $('#updateDataForm').slideToggel();
+})
 
-    $(this).next().slideToggle();
-});
 
-$('#updateButton').on('click', function(){
-    $('.updateDataForm').slideToggle();
-});
+$("#burger").hover(()=>{
+  $(".tabs").slideToggel();
+ });

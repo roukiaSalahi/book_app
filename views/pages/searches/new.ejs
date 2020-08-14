@@ -1,18 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>new selection</title>
+    <%- include('../../layout/head') %>
 </head>
-<body>
-    <h1>Search by Title or Author</h1>
-    <form action="/searches" method="POST">
-        <input type="text" placeholder="Enter a title or author" name="search">
-        <label for="title">Title <input type="radio" id="title" value = "title" name="title"></label>
-        <label for="author">Author <input type="radio" id="author" value="author" name="author"></label>
-        <button type="submit">Search the Google Books API</button>
 
-    </form>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <%- include('../../layout/header') %>
+
+    <main>
+        <form id='search' action="/searches" method="POST">
+            <fieldset>
+                <label for="book" id="title">Enter a title or author
+                    <input type="text" id="book_id" placeholder="Enter a title or author" name="search"></label>
+                <br>
+                <br>
+
+                <label for="title">Title <input type="radio" id="title" value="title" name="title"></label>
+                <br>
+                <br>
+
+                <label for="author">Author <input type="radio" id="author" value="author" name="author"></label>
+                <br>
+                <br>
+
+                <button type="submit">Search the Google Books API</button>
+            </fieldset>
+        </form>
+    </main>
+
+    <%- include('../../layout/footer') %>
 </body>
+
+<style>
+    label {
+        padding: 5px 20px 5px 20px;
+        background-color: rgb(216, 214, 214);
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+</style>
+
+<script>
+    $('#updateDataForm').hide();
+    $('#showform').click(() => {
+        $('#updateDataForm').slideToggle();
+    })
+    $(".tabs").hide();
+    $("#burger").click(() => {
+        $(".tabs").slideToggle();
+    });
+</script>
+
 </html>

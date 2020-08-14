@@ -119,11 +119,10 @@ app.post(`/searches`, (req, res) => {
 
 function Book(data) {
     this.image_url = data.volumeInfo.imageLinks.thumbnail.replace(/^(http:)/g, 'https:') || 'https://i.imgur.com/J5LVHEL.jpg';
-    this.author = data.volumeInfo.authors || 'not available';
-    this.title = data.volumeInfo.title || 'not available';
-    this.author = data.volumeInfo.authors || 'not available';
-    this.description = data.volumeInfo.description || 'not available';
-    this.isbn = data.volumeInfo.industryIdentifiers[0].identifier || 'not available';
+    this.title = data.volumeInfo.title || 'title is not available';
+    this.author = data.volumeInfo.authors || 'author name is not available';
+    this.description = data.volumeInfo.description || 'description is not available';
+    this.isbn = data.volumeInfo.industryIdentifiers[0].identifier || 'isbn is not available';
 }
 // update
 app.put('/books/:id', (req, res) => {

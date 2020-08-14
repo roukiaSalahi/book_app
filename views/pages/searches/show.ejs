@@ -4,22 +4,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Books</title>
+    <%- include('../../layout/head') %>
 </head>
 
 <body>
+    <%- include('../../layout/header') %>
     <main>
         <h1>Search Results</h1>
         <ul>
             <% searchRuslts.forEach(book => { %>
-            <li> 
+            <li>
                 <div>
                     <img src=" <%= book.image_url %> " alt="cover">
                     <h2> <%= book.title %></h2>
-                    <h3> <%= book.author %></h3>
+                    <h4> <%= book.author %></h4>
                     <p> <%= book.description %></p>
                 </div>
-                <form action="/books" method="POST">
+                <button id="showform">Add To Shelf</button>
+                <form id='updateDataForm' action="/books" method="POST">
                     <label for="title">Title <input name="title" id="title" type="text"
                             value="<%= book.title %>"></label>
                     <br>
@@ -36,16 +39,29 @@
                     <br>
                     <label for="bookshelf">Book Shelf <input type="text"> </label>
                     <br>
-                    <button class="toggle-form" type="submit">Add book to shelf</button>
+                    <button type="submit">Add book to shelf</button>
 
                 </form>
             </li>
+            
 
             <% }); %>
         </ul>
     </main>
+    <%- include('../../layout/footer') %>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/app.js"></script>
 </body>
+
+<script>
+    $('#updateDataForm').hide();
+    $('#showform').click(() => {
+        $('#updateDataForm').slideToggle();
+    })
+    $(".tabs").hide();
+    $("#burger").click(() => {
+        $(".tabs").slideToggle();
+    });
+</script>
 
 </html>

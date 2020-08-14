@@ -4,28 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>book-app</title>
+    <%- include('../layout/head') %>
 
 </head>
 
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <%- include('../layout/header') %>
     <main>
-        <p>
-            we have <%= finalResult.length %> books in the library
-        </p>
+        <h1>HOME PAGE</h1>
+        <br> <br>
+        <h2>Here you can search and save your favorit books </h2>
+        <br>
+        <h3>
+            <%= finalResult.length %> Saved Books
+        </h3>
         <ul>
             <% finalResult.forEach(book=>{ %>
-
-            <img class="bookCover" src="<%= book.image_url %>">
-            <h2 class="bookTitle"><%= book.title %></h2>
-            <h4 class="bookAuthor"> <%= book.author %> </h4>
-            <form action="/books/<%= book.id%>" method="GET">
-                <button type="submit">View Details</button>
-            </form>
-
+            <li>
+                <div id='result'>
+                    <img src="<%= book.image_url %>"> <br>
+                    <h2><%= book.title %></h2>
+                    <h3> <%= book.author %> </h3>
+                    <a href="/books/<%= book.id%>"><button>View Details</button></a> <br>
+                </div>
+            </li>
             <% }); %>
         </ul>
     </main>
+    <%- include('../layout/footer') %>
 </body>
-</html>
 
+<script>
+    $('#updateDataForm').hide();
+    $('#showform').click(() => {
+        $('#updateDataForm').slideToggle();
+    })
+    $(".tabs").hide();
+    $("#burger").click(() => {
+        $(".tabs").slideToggle();
+    });
+</script>
+
+</html>

@@ -15,16 +15,16 @@ body{
  main{
     /* grid-template-columns: 1fr 10fr 1fr; */
     /* display: grid; */
-    font-style: oblique;
-    font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
     /* justify-items: center; */
     overflow-y: scroll;
     height: 800px;
   }
+ 
  main::-webkit-scrollbar {
     display: none;
  }
+ 
  footer{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;

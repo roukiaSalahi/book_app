@@ -12,7 +12,7 @@
         <h1>Search Results</h1>
         <ul>
             <% searchRuslts.forEach(book => { %>
-            <li>
+            <li> 
                 <div>
                     <img src=" <%= book.image_url %> " alt="cover">
                     <h2> <%= book.title %></h2>
@@ -20,7 +20,8 @@
                     <p> <%= book.description %></p>
                 </div>
                 <form action="/books" method="POST">
-                    <label for="title">Title <input name="title" id="title" type="text" value= "<%= book.title %>"></label>
+                    <label for="title">Title <input name="title" id="title" type="text"
+                            value="<%= book.title %>"></label>
                     <br>
                     <label for="author">Author <input name='author' id='author' type="text"
                             value="<%= book.author %>"></label>
@@ -35,13 +36,16 @@
                     <br>
                     <label for="bookshelf">Book Shelf <input type="text"> </label>
                     <br>
-                    <button type="submit">Add book to shelf</button>
+                    <button class="toggle-form" type="submit">Add book to shelf</button>
+
                 </form>
             </li>
-            
+
             <% }); %>
         </ul>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,34 @@
+body{
+    width: 100%;
+    height: 100%;
+    /* display: grid; */
+    background-color: darkgray; 
+    color: black;
+    /* grid-template-rows: 15% 80% 20%; */
+ }
+ header{
+    align-content: space-around;  
+    display: grid;
+    background-color: black;
+    grid-template-columns: 60% auto 10%;
+ }
+ main{
+    /* grid-template-columns: 1fr 10fr 1fr; */
+    /* display: grid; */
+    font-style: oblique;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    /* justify-items: center; */
+    overflow-y: scroll;
+    height: 800px;
+  }
+ main::-webkit-scrollbar {
+    display: none;
+ }
+ footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    background-color: black;
+    align-content: space-around;  
+    justify-items: center;
+ }

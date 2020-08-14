@@ -14,12 +14,12 @@
             we have <%= finalResult.length %> books in the library
         </p>
         <ul>
-            <% finalResult.forEach(bookItem=>{ %>
+            <% finalResult.forEach(book=>{ %>
 
-            <img class="bookCover" src="<%= bookItem.image_url %>">
-            <h2 class="bookTitle"><%= bookItem.title %></h2>
-            <h4 class="bookAuthor"> <%= bookItem.author %> </h4>
-            <form action="/books/<%=bookItem.id%>" method="GET">
+            <img class="bookCover" src="<%= book.image_url %>">
+            <h2 class="bookTitle"><%= book.title %></h2>
+            <h4 class="bookAuthor"> <%= book.author %> </h4>
+            <form action="/books/<%= book.id%>" method="GET">
                 <button type="submit">View Details</button>
             </form>
 
@@ -28,3 +28,4 @@
     </main>
 </body>
 </html>
+

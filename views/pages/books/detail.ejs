@@ -9,10 +9,43 @@
 
 <body>
     <main>
-        <img class="bookCover" src="<%= book.image_url %>">
-        <h2 class="bookTitle"><%= book.title %></h2>
-        <h4 class="bookAuthor"> <%= book.author %> </h4>
-        <p><%= book.description %></p>
+        <section class="bookInfo">
+            <img class="bookCover" src="<%= book.image_url %>">
+            <h2 class="bookTitle"><%= book.title %></h2>
+            <h4 class="bookAuthor"> <%= book.author %> </h4>
+            <p><%= book.description %></p>
+            <p class="isbn"><%= book.isbn %> </p>
+            <P class="bookshelf"><%= book.bookshelf %></P>
+        </section>
+        <button id="showform" type="submit">Update Details</button>
+        <form class="deleteData" action="/books/<%= book.id %>?_method=delete" method="post">
+            <button type="submit">Delete</button>
+        </form>
+        <form class="updateDataForm" action="/books/<%= book.id %>?_method=put" method="post">
+            <label for="">Title:</label> <br />
+            <input type="text" name="updatedTitle" value="<%= book.title %>"> <br />
+            <label for="">Author:</label> <br />
+            <input type="text" name="updatedAuthor" value="<%= book.author %>"> <br />
+            <label for="">ISBN:</label> <br />
+            <input type="text" name="updatedisbn" value="<%= book.isbn %>"> <br />
+        
+            <label for="">Image URL:</label> <br />
+            <input type="text" name="updatedImage_url" value="<%= book.image_url %>"> <br />
+        
+            <label for="updatedDescription">Describtion:</label> <br />
+            <textarea id="updatedDescription" style="resize: none; width: 90%; height: 10em;"
+                name="updatedDescription"><%= book.description %> </textarea> <br />
+        
+        
+            <label for="">Catgory:<input type="text" name="updatedBookshelf" value="<%= book.bookshelf %>"
+                    class="catigoryText"></label> <br />
+            <button id ="Save" class="btnSave" type="submit">Save</button>
+        
+        </form>
     </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/app.js"></script>
 </body>
+
 </html>
+
